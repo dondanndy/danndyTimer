@@ -17,12 +17,14 @@
 import math
 import random
 
-def get_movements(layers, movements, scramble, n):
+def get_movements(layers, movements, n):
     '''
-        Recursive function, it gives a movements list
-        adding a movement considering it's not repeatead.
+        This function returns a string with a n-long
+        scramble based on the movements allowed in the
+        layers and movements lists.
     '''
-    
+    scramble = []
+
     for i in range(n):
         #Loop until we have a valid layer (range from 0 to len of list)
         while True:
@@ -55,9 +57,8 @@ def scramble_2x2(n):
     layers = ('R', 'L', 'F', 'B', 'U', 'D')
     movements = ('',"'",'2')
 
-    scramble = []
 
-    return get_movements(layers, movements, scramble, n)
+    return get_movements(layers, movements, n)
 
 
 def scramble_3x3(n):

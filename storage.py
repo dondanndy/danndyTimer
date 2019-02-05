@@ -16,7 +16,7 @@ class Storage:
 
         for table in tables:
             self.c.execute(f'CREATE TABLE IF NOT EXISTS {table} (Date TEXT,' +
-                            'Scramble TEXT, Time TEXT)')
+                           'Scramble TEXT, Time TEXT)')
             self.conn.commit()
 
     # def clear_database():

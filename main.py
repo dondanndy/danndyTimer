@@ -1,7 +1,7 @@
-import re
 import sys
-from interface import MyWidget
-from PySide2 import QtCore, QtWidgets, QtGui
+from IO import IO
+from interface import Interface
+from PySide2.QtWidgets import QApplication
 from storage import Storage
 
 '''
@@ -10,26 +10,6 @@ from storage import Storage
     parsing methods and once we have it correctly parsed, we head
     to the storage part where we... well, storage it.
 '''
-
-
-def parse_line(line):
-    '''
-        Parses a line, returning an array of time and scramble.
-    '''
-
-    try:
-        re_time = re.compile(r"((\d{2}\.)?(\d{2}\.\d+))")
-        time = re_time.search(line).group(0)
-    except AttributeError:
-        return None
-
-    try:
-        re_scramble = re.compile(r"((R|L|U|D|F|B)(\'|2)?(\s|$|\n))+")
-        scramble = re_scramble.search(line).group(0)
-    except AttributeError:
-        return None
-
-    return [scramble, time]
 
 
 def main():
@@ -41,22 +21,9 @@ def main():
     and finally we will set the GUI to enter them easily.
     '''
 
-    #Okay, this works :)
+    app = QApplication([])
+    widget = Interface()
 
-    # with open('times.txt', 'r') as file:
-    #     times = file.readlines()
-
-    # connection = Storage()
-    # parsed_lines = []
-
-    # for line in times:
-    #     parsed_line = parse_line(line)
-    #     if parsed_line is not None:
-    #         connection.insert_line(parsed_line, 'c3x3')
-
-    app = QtWidgets.QApplication([])
-
-    widget = MyWidget()
     widget.resize(900, 600)
     widget.show()
 

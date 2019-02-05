@@ -1,26 +1,43 @@
+'''
+    This file contains the Qt implementation of our interface.
+
+    Right now it's far from complete and it's pretty much just visual,
+    later on we will add events and how everything is going to connect
+    with the core functionalities.
+'''
+
+
 import random
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2.QtWidgets import QMainWindow, QMenu, QApplication, QAction
 
 
-class MyWidget(QtWidgets.QWidget):
+class Interface(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.hello = ["Hallo Welt", "你好，世界", "Hei maailma", "Hola Mundo", "Привет мир"]
+        self.toolbar()        
 
-        self.button = QtWidgets.QPushButton("Click me!")
-        self.text = QtWidgets.QLabel("Hello World")
-        self.text.setAlignment(QtCore.Qt.AlignCenter)
+    def toolbar(self):
+        menubar = self.menuBar()
 
-        self.text.setFont(QtGui.QFont("Titillium", 30))
-        self.button.setFont(QtGui.QFont("Titillium", 20))
+        # File Menu.
+        fileMenu = menubar.addMenu('File')
 
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
-        self.setLayout(self.layout)
+        file = QMenu('Open', self)
+        fileMenu.addMenu(file)
 
-        self.button.clicked.connect(self.magic)
+        new_set_act = QAction('New set of times', self) 
+        fileMenu.addAction(new_set_act)
 
-    def magic(self):
-        self.text.setText(random.choice(self.hello))
+        import_act = QAction('Import database', self)
+        
+        fileMenu.addAction(import_act)
+
+        # Session Menu
+        SessionMenu = menubar.addMenu('Session')
+
+        stats_act = QAction('Statistics of the session', self)
+        SessionMenu.addAction(stats_act)
+
+        delete_last_act = QAction('Delete last time', self)
+        SessionMenu.addAction(delete_last_act)
